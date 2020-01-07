@@ -25,7 +25,7 @@ public class Server {
         Socket socket = null;
 
         try {
-            server = new ServerSocket(8189);
+            server = new ServerSocket(8185);
             System.out.println("Сервер запущен");
 
             while (true) {
