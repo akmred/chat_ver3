@@ -1,0 +1,7 @@
+log2 : privet
+́log2 : privet privet
+́[ log2 ] private [ log1 ] : hello
+́[ log2 ] private [ log1 ] : hello hello
+́[ log1 ] private [ log2 ] : privet
+́log3 : hello all
+́
