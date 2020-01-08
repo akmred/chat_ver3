@@ -1,0 +1,9 @@
+log1 : hello
+́log1 : hello1
+́log1 : bingo
+́[ log2 ] private [ log1 ] : hello
+́[ log2 ] private [ log1 ] : hello hello
+́[ log1 ] private [ log2 ] : privet
+́log1 : heflkjdsf
+́log3 : hello all
+́

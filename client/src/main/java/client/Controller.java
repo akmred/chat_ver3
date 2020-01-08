@@ -54,6 +54,7 @@ public class Controller implements Initializable {
 
     private boolean isAuthenticated;
     private String nickname;
+    HistoryChat historyChat;
 
     public void setAuthenticated(boolean authenticated) {
         isAuthenticated = authenticated;
@@ -66,6 +67,7 @@ public class Controller implements Initializable {
         if (!isAuthenticated) {
             nickname = "";
         }
+
     }
 
     @Override
@@ -78,6 +80,9 @@ public class Controller implements Initializable {
                 @Override
                 public void handle(WindowEvent event) {
                     System.out.println("bye");
+                    // Записываем историю чата в файл по текущему логину
+                    historyChat.writeFile();
+
                     if (socket != null && !socket.isClosed()) {
                         try {
                             out.writeUTF("/end");
@@ -110,6 +115,9 @@ public class Controller implements Initializable {
                         if (str.startsWith("/authok")) {
                             setAuthenticated(true);
                             nickname = str.split(" ")[1];
+                            historyChat= new HistoryChat(nickname);
+                            textArea.setText(historyChat.getText());
+
                             break;
                         }
 /////////////////
@@ -117,7 +125,8 @@ public class Controller implements Initializable {
                             throw new RuntimeException("отключаемся");
                         }
  ////////////////
-                        textArea.appendText(str + "\n");
+                        String strFull = str + "\n";
+                        textArea.appendText(strFull);
                     }
 
                     setTitle("Chat : " + nickname);
@@ -127,6 +136,8 @@ public class Controller implements Initializable {
                         if (str.startsWith("/")) {
                             if (str.equals("/end")) {
                                 setAuthenticated(false);
+                               // Записываем историю чата в файл по текущему логину
+                                historyChat.writeFile();
                                 break;
                             }
                             if (str.startsWith("/clientlist ")) {
@@ -143,7 +154,11 @@ public class Controller implements Initializable {
                             }
 
                         } else {
-                            textArea.appendText(str + "\n");
+                            String strFull = str + "\n";
+                            textArea.appendText(strFull);
+                            // Записываем текст в историю чата
+                            historyChat.addString(strFull);
+
                         }
                     }
                 } catch (RuntimeException e) {

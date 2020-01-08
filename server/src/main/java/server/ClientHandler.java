@@ -56,6 +56,7 @@ public class ClientHandler {
                                 sendMsg("Ошибка: с этим логином уже Зарегистированы.");
                             } else {
                                 sendMsg("Регистрация прошла успешно.");
+
                             }
                         }
 
